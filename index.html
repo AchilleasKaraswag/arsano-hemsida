@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arsano</title>
+<meta name="description" content="Arsano – system för försvar och utbildning. Enkelt byggt, hårt prövat.">
+<link rel="icon" href="assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="start">
+
+<!-- ---- fast rad högst upp ---- -->
+<header class="topbar" data-topbar>
+  <div class="wrap">
+    <a class="brand" href="#toppen" aria-label="Arsano, till toppen">
+      <img src="assets/img/arsano-mark.png" alt="Arsano">
+    </a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="huvudmeny">Meny</button>
+    <nav class="meny" id="huvudmeny" aria-label="Huvudmeny">
+      <div class="meny__punkt" data-meny>
+        <button class="meny__lank" aria-haspopup="true" aria-expanded="false">
+          Produkter <span class="meny__pil" aria-hidden="true"></span>
+        </button>
+        <div class="drop"><div class="drop__panel" data-produktmeny></div></div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- ---- logotyp och slogan ---- -->
+<section class="hero-start" id="toppen">
+  <h1 class="sr-only">Arsano</h1>
+  <img class="start-logo" src="assets/img/arsano-mark.png" alt="Arsano">
+  <p class="start-slogan">Enkelt byggt. Hårt prövat.</p>
+  <a class="scrolla" href="#om-oss">Om oss <i aria-hidden="true"></i></a>
+</section>
+
+<!-- ---- om oss, direkt under ---- -->
+<main class="start-innehall">
+
+  <section class="section" id="om-oss">
+    <div class="wrap">
+      <div class="grid grid--2">
+        <div>
+          <p class="eyebrow">Om oss</p>
+          <h2>Vad vi gör</h2>
+        </div>
+        <div>
+          <p class="lead">Arsano utvecklar och tillverkar materiel för försvar och utbildning, med
+             tyngdpunkt på C-UAS och skjututbildning mot luftburna mål. Arbetet omfattar hela
+             kedjan – konstruktion, prototypframtagning, verifiering och tillverkning.</p>
+          <p>Utgångspunkten är att utbildningsmateriel används hårt och ofta av många olika
+             användare. Konstruktionerna är därför mekaniska så långt det går, byggda av utbytbara
+             moduler och dimensionerade för upprepad användning i fält.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="eyebrow">Så tänker vi</p>
+        <h2>Tre principer</h2>
+      </div>
+      <div class="grid grid--3">
+        <div class="principle">
+          <span class="principle__n">01</span>
+          <h3>Enkelhet före komplexitet</h3>
+          <p>Mekanisk funktion där mekanik räcker. Ingen elektronik som kan ta slut på ström,
+             störas ut eller sluta fungera i kyla.</p>
+        </div>
+        <div class="principle">
+          <span class="principle__n">02</span>
+          <h3>Låg logistisk belastning</h3>
+          <p>Kompakt att transportera, snabbt att montera utan specialverktyg och enkelt att
+             återställa mellan övningsmoment.</p>
+        </div>
+        <div class="principle">
+          <span class="principle__n">03</span>
+          <h3>Modulärt och återanvändbart</h3>
+          <p>Grundkonstruktionen används om igen – bara förbrukningsdelarna byts. Det håller
+             driftkostnaden nere över tid.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="wrap">
+      <div class="grid grid--2">
+        <div>
+          <p class="eyebrow">Kontakt och företagsuppgifter</p>
+          <h2>Så når du oss</h2>
+        </div>
+        <div>
+          <ul class="contact-list">
+            <li><span class="k">E-post</span><span class="v"><a href="mailto:info@arsano.se">info@arsano.se</a></span></li>
+            <li><span class="k">Säte</span><span class="v">Uppsala</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a class="brand" href="#toppen" style="margin-bottom:1rem" aria-label="Arsano, till toppen">
+          <img src="assets/img/arsano-mark.png" alt="Arsano">
+        </a>
+        <p class="small" style="color:#9AA0A6;max-width:34ch">
+          System för försvar och utbildning. Utvecklat och tillverkat i Sverige.
+        </p>
+      </div>
+      <div>
+        <h4>Innehåll</h4>
+        <ul>
+          <li><a href="#om-oss">Om oss</a></li>
+          <li><a href="produkt.html?p=xmarkr">Xmarkr</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Kontakt</h4>
+        <ul><li><a href="mailto:info@arsano.se">info@arsano.se</a></li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span data-ar>2026</span> Arsano</span>
+      <span>Sverige</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/produkter.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
