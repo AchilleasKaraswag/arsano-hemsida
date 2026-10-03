@@ -63,8 +63,7 @@ const PRODUKTER = [
     galleri: [
       { bild: "assets/img/xmarkr-funktion.png", text: "01 Träff · 02 Frigöring · 03 Indikation" }
     ],
-
-    datablad: "assets/dokument/Xmarkr-datablad.pdf"
+    
   },
 
   /* --- Platshållare för kommande produkter. Ta bort eller ersätt. --------- */
