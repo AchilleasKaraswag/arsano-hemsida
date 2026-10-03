@@ -19,30 +19,25 @@
     <a class="brand" href="#toppen" aria-label="Arsano, till toppen">
       <img src="assets/img/arsano-mark.png" alt="Arsano">
     </a>
-    <button class="nav-toggle" aria-expanded="false" aria-controls="huvudmeny">Meny</button>
-    <nav class="meny" id="huvudmeny" aria-label="Huvudmeny">
-      <div class="meny__punkt" data-meny>
-        <button class="meny__lank" aria-haspopup="true" aria-expanded="false">
-          Produkter <span class="meny__pil" aria-hidden="true"></span>
-        </button>
-        <div class="drop"><div class="drop__panel" data-produktmeny></div></div>
-      </div>
+    <nav class="meny meny--enkel" aria-label="Huvudmeny">
+      <a class="meny__lank" href="#produkter">Produkter</a>
     </nav>
   </div>
 </header>
 
 <!-- ---- logotyp och slogan ---- -->
 <section class="hero-start" id="toppen">
-  <h1 class="sr-only">Arsano</h1>
-  <img class="start-logo" src="assets/img/arsano-mark.png" alt="Arsano">
-  <p class="start-slogan">Tillgängligt och användarvänligt</p>
-  <a class="scrolla" href="#om-oss">Om oss <i aria-hidden="true"></i></a>
+  <div class="wrap hero-start__rad">
+    <h1 class="sr-only">Arsano</h1>
+    <img class="start-logo" src="assets/img/arsano-mark.png" alt="Arsano">
+    <p class="start-slogan">Tillgängligt och användarvänligt</p>
+  </div>
 </section>
 
 <!-- ---- om oss, direkt under ---- -->
 <main class="start-innehall">
 
-  <section class="section" id="om-oss">
+  <section class="section section--paper" id="om-oss">
     <div class="wrap">
       <div class="grid grid--2">
         <div>
@@ -60,7 +55,18 @@
     </div>
   </section>
 
-  <section class="section section--paper">
+  <!-- ---- produkter, byggs från assets/js/produkter.js ---- -->
+  <section class="section" id="produkter">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="eyebrow">Produkter</p>
+        <h2>Våra system</h2>
+      </div>
+      <div class="cards" data-produktkort></div>
+    </div>
+  </section>
+
+  <section class="section section--paper" id="kontakt">
     <div class="wrap">
       <div class="grid grid--2">
         <div>
@@ -94,6 +100,7 @@
         <h4>Innehåll</h4>
         <ul>
           <li><a href="#om-oss">Om oss</a></li>
+          <li><a href="#produkter">Produkter</a></li>
           <li><a href="produkt.html?p=xmarkr">Xmarkr</a></li>
         </ul>
       </div>

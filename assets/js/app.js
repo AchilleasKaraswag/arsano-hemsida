@@ -1,6 +1,6 @@
 /* ==========================================================================
    ARSANO — gemensamt skript
-   Mobilmeny, utfällbar produktmeny och produktsida.
+   Produktkort på startsidan, produktsida och toppraden.
    ========================================================================== */
 
 (function () {
@@ -11,82 +11,51 @@
       .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 
-  /* ---------- mobilmeny ---------- */
-  const toggle = document.querySelector(".nav-toggle");
-  const meny = document.querySelector(".meny");
-  if (toggle && meny) {
-    toggle.addEventListener("click", function () {
-      const open = meny.classList.toggle("is-open");
-      toggle.setAttribute("aria-expanded", String(open));
-      toggle.textContent = open ? "Stäng" : "Meny";
-    });
-  }
-
   /* ======================================================================
-     Produktmenyn
-     Fälls ut vid hover på pekdon med muspekare (ren CSS) och vid klick
-     eller tangentbord, så att den fungerar även på pekskärm.
+     Produktkort på startsidan
+     Varje publik produkt blir ett klickbart kort som leder till sin
+     produktsida. Ej annonserade produkter slås ihop till ett gråat kort.
      ====================================================================== */
 
-  const meny_panel = document.querySelector("[data-produktmeny]");
-  if (meny_panel && typeof PRODUKTER !== "undefined") {
+  const kortyta = document.querySelector("[data-produktkort]");
+  if (kortyta && typeof PRODUKTER !== "undefined") {
     const publika = PRODUKTER.filter((p) => p.publik);
     const ovriga = PRODUKTER.filter((p) => !p.publik);
+    const statustext = (s) =>
+      typeof STATUSTEXT !== "undefined" && STATUSTEXT[s] ? STATUSTEXT[s] : "";
 
     let html = publika.map(function (p) {
-      return `<a href="produkt.html?p=${encodeURIComponent(p.id)}">
-                <b>${esc(p.namn)}</b>
-                <span>${esc(p.kicker || "")}</span>
+      return `<a class="card" href="produkt.html?p=${encodeURIComponent(p.id)}">
+                <div class="card__accent" style="background:${esc(p.accent || "#0F1113")}"></div>
+                <div class="card__media">
+                  ${p.bild
+                    ? `<img src="${esc(p.bild)}" alt="${esc(p.namn)}" loading="lazy">`
+                    : `<span class="card__media--empty">Bild saknas</span>`}
+                </div>
+                <div class="card__body">
+                  ${statustext(p.status) ? `<span class="badge${p.status === "tillganglig" ? " badge--live" : ""}">${esc(statustext(p.status))}</span>` : ""}
+                  <span class="card__kicker">${esc(p.kicker || "")}</span>
+                  <h3>${esc(p.namn)}</h3>
+                  <p>${esc(p.kort || "")}</p>
+                  <span class="card__foot">Läs mer <span aria-hidden="true">&rarr;</span></span>
+                </div>
               </a>`;
     }).join("");
 
     if (ovriga.length) {
-      html += `<div class="drop__streck"></div>`;
-      html += `<span class="drop__last">
-                 <b>Fler system</b>
-                 <span>Under utveckling – ej annonserade</span>
-               </span>`;
+      html += `<div class="card card--kommande">
+                 <div class="card__accent"></div>
+                 <div class="card__media card__media--empty">Under utveckling</div>
+                 <div class="card__body">
+                   <span class="badge">Ej annonserade</span>
+                   <span class="card__kicker">Kommande</span>
+                   <h3>Fler system</h3>
+                   <p>Ytterligare system är under utveckling. Information lämnas när de annonseras.</p>
+                 </div>
+               </div>`;
     }
-    meny_panel.innerHTML = html;
+    kortyta.innerHTML = html;
   }
-
-  document.querySelectorAll("[data-meny]").forEach(function (punkt) {
-    const knapp = punkt.querySelector(".meny__lank");
-    if (!knapp) return;
-
-    knapp.addEventListener("click", function (e) {
-      e.preventDefault();
-      const open = punkt.classList.toggle("is-open");
-      knapp.setAttribute("aria-expanded", String(open));
-    });
-
-    punkt.addEventListener("mouseenter", function () {
-      knapp.setAttribute("aria-expanded", "true");
-    });
-    punkt.addEventListener("mouseleave", function () {
-      punkt.classList.remove("is-open");
-      knapp.setAttribute("aria-expanded", "false");
-    });
-  });
-
-  // klick utanför eller Escape stänger
-  document.addEventListener("click", function (e) {
-    document.querySelectorAll("[data-meny].is-open").forEach(function (punkt) {
-      if (!punkt.contains(e.target)) {
-        punkt.classList.remove("is-open");
-        const k = punkt.querySelector(".meny__lank");
-        if (k) k.setAttribute("aria-expanded", "false");
-      }
-    });
-  });
-  document.addEventListener("keydown", function (e) {
-    if (e.key !== "Escape") return;
-    document.querySelectorAll("[data-meny].is-open").forEach(function (punkt) {
-      punkt.classList.remove("is-open");
-      const k = punkt.querySelector(".meny__lank");
-      if (k) { k.setAttribute("aria-expanded", "false"); k.focus(); }
-    });
-  });
 
   /* ======================================================================
      Produktsida — byggs från produkter.js utifrån ?p= i adressen
@@ -208,14 +177,16 @@
     }
   }
 
-  /* ---------- toppraden blir mörk när man rullat förbi hjältebilden ---------- */
+  /* ---------- toppraden krymper med bandet och blir mörk när det passerats ---------- */
   const topbar = document.querySelector("[data-topbar]");
   const hjalte = document.querySelector(".hero-start");
   if (topbar && hjalte) {
+    const STUCK = 60;                               // samma som --bar-stuck i style.css
     let vantar = false;
     const uppdatera = function () {
-      const grans = hjalte.offsetHeight - topbar.offsetHeight - 40;
-      topbar.classList.toggle("is-stuck", window.scrollY > Math.max(grans, 40));
+      const kvar = hjalte.offsetHeight - window.scrollY;
+      topbar.style.setProperty("--bar-h", Math.max(kvar, STUCK) + "px");
+      topbar.classList.toggle("is-stuck", kvar <= STUCK);
       vantar = false;
     };
     window.addEventListener("scroll", function () {

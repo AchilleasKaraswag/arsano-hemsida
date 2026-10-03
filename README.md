@@ -6,29 +6,30 @@ ingen server­kod – filerna kan laddas upp som de är till valfritt webbhotell
 ## Innehåll
 
 ```
-index.html              Startsida – logotyp, slogan och Om oss-innehållet under
+index.html              Startsida – logotyp och slogan, Om oss, Produkter och Kontakt
 produkt.html            Produktsida, byggs från produktdata (produkt.html?p=xmarkr)
 assets/css/style.css    All formgivning
 assets/js/produkter.js  ← ALLT PRODUKTINNEHÅLL LIGGER HÄR
-assets/js/app.js        Meny, utfällbar produktlista, produktsida
+assets/js/app.js        Produktkort på startsidan, produktsida, toppraden
 assets/img/             Logotyper och produktbilder
 assets/dokument/        Datablad (PDF)
 ```
 
-Startsidan börjar med enbart logotypen och sloganen i helskärm. Rullar man ned fortsätter
-sidan med Om oss – verksamhet, principer, grundare och kontaktuppgifter. Raden högst upp är
-genomskinlig över logotypen och blir mörk med en liten logotyp så fort man rullat förbi.
+Startsidan börjar med ett mörkt band med logotypen och sloganen. Bandet är 1/6 av
+skärmhöjden (variabeln `--hero-h` i `style.css`). Under bandet kommer Om oss (Vad vi gör),
+därefter Produkter som klickbara kort och sist Kontakt. Raden högst upp krymper i takt med
+bandet när man rullar och blir mörk med en liten logotyp när bandet passerats.
 
-Enda länken i menyn är **Produkter**, som fälls ut vid hover på dator och vid tryck på
-mobil. Varje produkt leder till en egen sida, och därifrån tar man sig tillbaka genom att
-klicka på logotypen uppe till vänster.
+Enda länken i menyn är **Produkter**, som hoppar till produktkorten på startsidan. Varje
+kort leder till en egen produktsida, och därifrån tar man sig tillbaka genom att klicka på
+logotypen eller på Produkter.
 
 **Sloganen** står i `index.html` (klassen `start-slogan`).
 
 ## Lägga till en produkt
 
 Öppna `assets/js/produkter.js` och lägg till ett block i listan. Längst ned i filen finns
-en färdig mall att kopiera. Produkten dyker automatiskt upp i produktmenyn och får en egen
+en färdig mall att kopiera. Produkten dyker automatiskt upp som kort på startsidan och får en egen
 sida – ingen HTML behöver ändras.
 
 Viktiga fält:
@@ -36,7 +37,7 @@ Viktiga fält:
 | Fält | Betydelse |
 |---|---|
 | `id` | Kortnamn utan mellanslag. Blir adressen: `produkt.html?p=DITT-ID` |
-| `publik` | `true` ger en egen produktsida och en post i produktmenyn. `false` göms i menyn bakom raden "Fler system – under utveckling" |
+| `publik` | `true` ger ett produktkort och en egen produktsida. `false` samlas i ett gråat kort "Fler system – under utveckling" |
 | `status` | `"tillganglig"`, `"utveckling"` eller `"kommande"` |
 | `accent` | Produktens färg, syns som en tunn rad överst på produktkortet |
 | `spec` | Lista med `["Etikett", "Värde"]` som blir tabellen Teknisk data |
@@ -44,7 +45,7 @@ Viktiga fält:
 | `miljodatablad` | Sökväg till miljödatablad i PDF. Ger en andra nedladdningsknapp under databladet. Utelämna fältet om det saknas |
 
 Produkter som inte är annonserade lämnar du kvar som `publik: false`. De syns då bara som
-en gråad rad i menyn, vilket signalerar att portföljen växer utan att avslöja något.
+ett gråat kort bland produkterna, vilket signalerar att portföljen växer utan att avslöja något.
 
 Bilder lägger du i `assets/img/` och datablad i `assets/dokument/`.
 

@@ -345,158 +345,99 @@ a.card:hover{ transform:translateY(-3px); border-color:#C9C6C0; box-shadow:0 14p
 
 body.start{ background:var(--ink); color:#fff; }
 
-/* fast rad högst upp: genomskinlig över hjältebilden, mörk när man rullat ned */
+/* Hjältebandet är 1/6 av skärmhöjden (men aldrig lägre än 120 px).
+   Ändra --hero-h för att göra bandet högre eller lägre. */
+:root{ --hero-h:max(16.667vh, 120px); --bar-stuck:60px; }
+@supports (height:100svh){ :root{ --hero-h:max(16.667svh, 120px); } }
+
+/* fast rad högst upp: lika hög som bandet och genomskinlig, krymper medan man
+   rullar och blir mörk med liten logotyp när bandet passerats (se app.js) */
 .topbar{
   position:fixed; top:0; left:0; right:0; z-index:100;
-  padding-block:1.35rem; border-bottom:1px solid transparent;
-  transition:background .3s ease, padding .3s ease, border-color .3s ease;
+  border-bottom:1px solid transparent;
+  transition:background .3s ease, border-color .3s ease;
 }
-.topbar .wrap{ display:flex; align-items:center; justify-content:space-between; gap:1rem; position:relative; }
-.topbar .brand img{ width:42px; height:42px; }
+.topbar .wrap{
+  display:flex; align-items:center; justify-content:space-between; gap:1rem; position:relative;
+  min-height:var(--bar-h, var(--hero-h));
+}
+.topbar .brand img{ width:38px; height:38px; }
 .topbar .brand{
   opacity:0; transform:translateY(-8px); pointer-events:none;
   transition:opacity .3s ease, transform .3s ease;
 }
 .topbar.is-stuck{
   background:rgba(15,17,19,.94); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
-  padding-block:.7rem; border-bottom-color:var(--line-dark);
+  border-bottom-color:var(--line-dark);
 }
 .topbar.is-stuck .brand{ opacity:1; transform:none; pointer-events:auto; }
 
 .hero-start{
-  position:relative; min-height:100vh; min-height:100svh;
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  text-align:center; padding:7rem 1.2rem 7rem;
+  position:relative; height:var(--hero-h);
+  display:flex; align-items:center;
+}
+.hero-start__rad{
+  display:flex; align-items:center; gap:clamp(1rem,2.6vw,1.9rem);
+  padding-right:clamp(7rem,14vw,10rem);      /* lämnar plats åt menyn till höger */
 }
 .start-logo{
-  width:clamp(190px,30vw,360px); height:auto;
-  filter:drop-shadow(0 24px 60px rgba(0,0,0,.55));
+  height:calc(var(--hero-h) * .64); width:auto; flex:none;
+  filter:drop-shadow(0 12px 30px rgba(0,0,0,.5));
   animation:stigUpp .8s cubic-bezier(.2,.7,.3,1) both;
 }
 .start-slogan{
-  margin:clamp(2rem,4vw,3rem) 0 0;
-  font-size:clamp(1.15rem,2.6vw,1.85rem);
+  margin:0; padding-left:clamp(1rem,2.6vw,1.9rem);
+  border-left:2px solid var(--accent);
+  font-size:clamp(1rem,2.2vw,1.6rem); line-height:1.25;
   font-weight:500; letter-spacing:.01em; color:#E7E8E9;
   animation:stigUpp .8s cubic-bezier(.2,.7,.3,1) .18s both;
 }
-.start-slogan::before{
-  content:""; display:block; width:48px; height:2px; background:var(--accent);
-  margin:0 auto clamp(1.2rem,2.5vw,1.8rem);
-}
-@keyframes stigUpp{ from{ opacity:0; transform:translateY(14px); } to{ opacity:1; transform:none; } }
+@keyframes stigUpp{ from{ opacity:0; transform:translateY(10px); } to{ opacity:1; transform:none; } }
 
-/* rulla-ned-markör */
-.scrolla{
-  position:absolute; left:50%; bottom:2.2rem; transform:translateX(-50%);
-  display:grid; justify-items:center; gap:.7rem;
-  padding-left:.2em;                 /* kompenserar tomrummet efter sista tecknet */
-  color:#8C9299; text-decoration:none;
-  font-family:var(--mono); font-size:.68rem; letter-spacing:.2em; text-transform:uppercase;
-  /* egen keyframe – stigUpp slutar på transform:none och skulle slå ut centreringen */
-  animation:stigUppMitt .8s cubic-bezier(.2,.7,.3,1) .5s both;
-  transition:color .2s ease;
+@media (max-width:560px){
+  .hero-start__rad{ padding-right:6.5rem; gap:.9rem; }
+  .start-slogan{ padding-left:.9rem; font-size:.98rem; }
 }
-@keyframes stigUppMitt{
-  from{ opacity:0; transform:translate(-50%,14px); }
-  to{   opacity:1; transform:translateX(-50%); }
-}
-.scrolla:hover{ color:#fff; }
-.scrolla i{
-  display:block; width:10px; height:10px;
-  margin-right:.2em;                 /* linjerar pilen med bokstäverna, inte med kolumnen */
-  border-right:1.6px solid currentColor; border-bottom:1.6px solid currentColor;
-  transform:rotate(45deg); animation:puffa 2s ease-in-out infinite;
-}
-@keyframes puffa{ 0%,100%{ transform:rotate(45deg) translate(0,0); } 50%{ transform:rotate(45deg) translate(3px,3px); } }
 
 /* allt under hjältebilden ligger på ljus botten */
 .start-innehall{ background:var(--paper); color:var(--ink); position:relative; z-index:1; }
-.start-innehall [id]{ scroll-margin-top:80px; }
+.start-innehall [id]{ scroll-margin-top:calc(var(--bar-stuck) + 10px); }
 
 @media (prefers-reduced-motion:reduce){
-  .start-logo,.start-slogan,.scrolla{ animation:none; }
-  .scrolla i{ animation:none; }
+  .start-logo,.start-slogan{ animation:none; }
 }
 
+/* ---------- produktkort på startsidan ---------- */
+#produkter .cards{ grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr)); }
+#produkter .card h3{ font-size:1.5rem; }
+#produkter .card p{ font-size:.98rem; }
+#produkter a.card .card__foot{ color:var(--ink); }
+#produkter a.card:hover .card__foot span{ transform:translateX(3px); }
+#produkter .card__foot span{ display:inline-block; transition:transform .18s ease; }
+.card--kommande{ background:transparent; border-style:dashed; }
+.card--kommande .card__media{ background:transparent; }
+.card--kommande h3, .card--kommande p{ color:var(--muted); }
+
 /* ==========================================================================
-   Meny med utfällbar produktlista
+   Meny — en enda länk (Produkter) som syns på alla skärmstorlekar
    ========================================================================== */
 
 .meny{ display:flex; align-items:center; gap:.2rem; }
-.meny__punkt{ position:relative; }
-
 .meny__lank{
-  display:inline-flex; align-items:center; gap:.45rem;
-  padding:.6rem .9rem; border:0; background:transparent; cursor:pointer;
-  font:inherit; font-size:.95rem; font-weight:500; letter-spacing:.01em;
-  color:#C7CBCF; text-decoration:none; border-radius:var(--r);
+  position:relative; display:inline-flex; align-items:center;
+  padding:.6rem .9rem; border-radius:var(--r);
+  font-size:.95rem; font-weight:500; letter-spacing:.01em;
+  color:#C7CBCF; text-decoration:none;
   transition:color .16s ease;
 }
-.meny__lank:hover, .meny__punkt:hover > .meny__lank, .meny__punkt.is-open > .meny__lank{ color:#fff; }
-.meny__lank[aria-current="page"]{ color:#fff; }
-.meny__lank[aria-current="page"]::after{
-  content:""; position:absolute; left:.9rem; right:.9rem; bottom:.25rem; height:2px; background:var(--accent);
+.meny__lank:hover{ color:#fff; }
+.meny__lank::after{
+  content:""; position:absolute; left:.9rem; right:.9rem; bottom:.3rem; height:2px;
+  background:var(--accent); transform:scaleX(0); transform-origin:left;
+  transition:transform .22s ease;
 }
-.meny__pil{
-  width:7px; height:7px; border-right:1.6px solid currentColor; border-bottom:1.6px solid currentColor;
-  transform:translateY(-2px) rotate(45deg);
-  transition:transform .28s cubic-bezier(.4,0,.2,1);
-}
-.meny__punkt:hover .meny__pil, .meny__punkt.is-open .meny__pil{ transform:translateY(1px) rotate(-135deg); }
-
-.drop{
-  position:absolute; top:100%; right:0; z-index:60;
-  min-width:280px; padding-top:.55rem;
-  opacity:0; visibility:hidden; transform:translateY(-8px);
-  transition:opacity .22s ease, transform .22s cubic-bezier(.4,0,.2,1), visibility .22s;
-}
-.meny__punkt:hover .drop,
-.meny__punkt:focus-within .drop,
-.meny__punkt.is-open .drop{ opacity:1; visibility:visible; transform:none; }
-
-.drop__panel{
-  background:var(--white); color:var(--ink);
-  border:1px solid var(--line); border-radius:var(--r);
-  box-shadow:0 22px 50px rgba(0,0,0,.28);
-  padding:.45rem; overflow:hidden;
-}
-.drop a, .drop .drop__last{
-  display:grid; gap:.12rem;
-  padding:.7rem .85rem; border-radius:var(--r);
-  text-decoration:none; color:inherit;
-}
-.drop a:hover{ background:#F4F3F0; }
-.drop b{ font-size:.95rem; font-weight:600; }
-.drop span{ font-size:.8rem; color:var(--muted); }
-.drop .drop__last{ opacity:.5; }
-.drop__streck{ height:1px; background:var(--line); margin:.35rem .3rem; }
-
-@media (max-width:760px){
-  .meny{ flex-direction:column; align-items:stretch; gap:0; width:100%; }
-  .meny__lank{ width:100%; justify-content:space-between; padding:.85rem .2rem; border-radius:0;
-               border-bottom:1px solid var(--line-dark); }
-  .drop{
-    position:static; min-width:0; padding-top:0;
-    display:none; opacity:1; visibility:visible; transform:none;
-  }
-  .meny__punkt.is-open .drop{ display:block; }
-  .meny__punkt:hover .drop{ display:none; }
-  .meny__punkt.is-open:hover .drop{ display:block; }
-  .drop__panel{ box-shadow:none; border:0; border-bottom:1px solid var(--line-dark);
-                background:transparent; color:#C7CBCF; padding:.2rem 0 .6rem; }
-  .drop a:hover{ background:transparent; color:#fff; }
-  .drop span{ color:#7E858B; }
-}
-
-/* startsidans meny ligger fritt utan mörk platta */
-.topbar .nav-toggle{ border-color:#3A4046; }
-@media (max-width:760px){
-  .topbar .meny{
-    display:none; position:absolute; top:calc(100% + .7rem); right:0; left:0;
-    background:var(--ink); border:1px solid var(--line-dark); padding:.4rem 1rem 1rem;
-  }
-  .topbar .meny.is-open{ display:flex; }
-}
+.meny__lank:hover::after{ transform:scaleX(1); }
+@media (max-width:560px){ .meny__lank{ padding:.6rem .2rem; } .meny__lank::after{ left:.2rem; right:.2rem; } }
 
 /* ---------- grundarkort ---------- */
 .person{ background:var(--white); border:1px solid var(--line); padding:1.5rem 1.6rem; }
@@ -507,17 +448,9 @@ body.start{ background:var(--ink); color:#fff; }
 }
 .person p{ margin:0; font-size:.95rem; color:var(--muted); }
 
-/* meny i det mörka sidhuvudet på undersidorna */
-@media (max-width:760px){
-  .site-header .wrap{ position:relative; }
-  .site-header .meny{
-    display:none; position:absolute; left:0; right:0; top:100%;
-    background:var(--ink); border-bottom:1px solid var(--line-dark);
-    padding:.4rem clamp(1.1rem,4vw,2rem) 1rem;
-  }
-  .site-header .meny.is-open{ display:flex; }
-}
-
 /* logotypen ensam i sidhuvudet, utan text */
 .site-header .brand img{ width:44px; height:44px; }
 .site-footer .brand img{ width:40px; height:40px; }
+#produkter .card__media:not(.card__media--empty){ display:block; aspect-ratio:auto; }
+#produkter .card__media img{ width:100%; height:auto; aspect-ratio:16/10; max-height:none; object-fit:contain; }
+#produkter a.card .card__media{ background:#fff; }
