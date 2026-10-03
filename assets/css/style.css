@@ -454,3 +454,11 @@ body.start{ background:var(--ink); color:#fff; }
 #produkter .card__media:not(.card__media--empty){ display:block; aspect-ratio:auto; }
 #produkter .card__media img{ width:100%; height:auto; aspect-ratio:16/10; max-height:none; object-fit:contain; }
 #produkter a.card .card__media{ background:#fff; }
+
+/* ---------- tjänster: egen färg ---------- */
+.section--tjanster{
+  background:#fff;                 /* ljus ton av accentorangen */
+  border-top:1px solid #F3D9C8;
+}
+.section--tjanster .lead{ color:#3A2A20; }
+.section--tjanster .section__head{ margin-bottom:0; }
