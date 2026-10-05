@@ -74,7 +74,7 @@ ArsanoSprak.lagg("en", {
   "Målstrukturens diameter": "Target structure diameter",
   "ca 500 mm": "approx. 500 mm",
   "Linlängd": "Line length",
-  "5 m (anpassningsbar)": "5 m (adjustable)",
+  "7.5 m (anpassningsbar)": "7.5 m (adjustable)",
   "Höljesmaterial": "Housing material",
   "ABS / PA12 (3D-print)": "ABS / PA12 (3D-printed)",
   "Markeringsmedium": "Marking medium",

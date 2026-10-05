@@ -74,7 +74,7 @@ ArsanoSprak.lagg("uk", {
   "Målstrukturens diameter": "Діаметр конструкції мішені",
   "ca 500 mm": "бл. 500 мм",
   "Linlängd": "Довжина троса",
-  "5 m (anpassningsbar)": "5 м (регульована)",
+  "7.5 m (anpassningsbar)": "7.5 м (регульована)",
   "Höljesmaterial": "Матеріал корпусу",
   "ABS / PA12 (3D-print)": "ABS / PA12 (3D-друк)",
   "Markeringsmedium": "Маркувальна речовина",
