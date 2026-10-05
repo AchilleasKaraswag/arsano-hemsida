@@ -1,0 +1,65 @@
+# Översätter ny eller ändrad svensk text automatiskt vid varje push till main.
+# Kräver en hemlighet i repot: Settings → Secrets and variables → Actions →
+# New repository secret, namn ANTHROPIC_API_KEY (eller DEEPL_API_KEY).
+
+name: Översätt
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "**.html"
+      - "assets/js/**"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: oversatt
+  cancel-in-progress: false
+
+jobs:
+  oversatt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Installera
+        working-directory: verktyg
+        run: npm install --no-audit --no-fund
+
+      - name: Översätt nya och ändrade texter
+        working-directory: verktyg
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          DEEPL_API_KEY: ${{ secrets.DEEPL_API_KEY }}
+        run: node oversatt.mjs
+
+      - name: Spara språkfilerna
+        id: spara
+        run: |
+          if git diff --quiet -- assets/sprak; then
+            echo "Inga ändringar i översättningarna."
+            echo "andrat=nej" >> "$GITHUB_OUTPUT"
+          else
+            git config user.name "arsano-oversattning"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add assets/sprak
+            git commit -m "Uppdatera översättningar"
+            git push
+            echo "andrat=ja" >> "$GITHUB_OUTPUT"
+          fi
+
+      # Commits gjorda av en Action startar inte alltid en ny publicering av
+      # GitHub Pages, så den begärs här uttryckligen.
+      - name: Publicera om GitHub Pages
+        if: steps.spara.outputs.andrat == 'ja'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X POST "repos/${{ github.repository }}/pages/builds" || echo "Kunde inte begära ny publicering – den sker vid nästa push."

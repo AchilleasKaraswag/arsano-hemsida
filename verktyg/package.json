@@ -1,0 +1,13 @@
+{
+  "name": "arsano-verktyg",
+  "private": true,
+  "type": "module",
+  "description": "Översätter webbplatsens svenska texter till engelska och ukrainska",
+  "scripts": {
+    "oversatt": "node oversatt.mjs",
+    "kontroll": "node oversatt.mjs --kontroll"
+  },
+  "dependencies": {
+    "jsdom": "^26.1.0"
+  }
+}

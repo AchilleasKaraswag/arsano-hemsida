@@ -26,6 +26,30 @@ logotypen eller på Produkter.
 
 **Sloganen** står i `index.html` (klassen `start-slogan`).
 
+## Språk (svenska, engelska, ukrainska)
+
+Uppe till höger finns tre runda flaggor. Valet sparas i webbläsaren, och första gången
+väljs språk efter besökarens webbläsarinställning (svenska, ukrainska, annars engelska).
+Länk direkt till ett språk: `index.html?lang=uk`, `?lang=en` eller `?lang=sv`.
+
+**Du skriver bara på svenska.** Översättningarna ligger i `assets/sprak/en.js` och
+`assets/sprak/uk.js` och slås upp på den svenska texten själv – det finns inga nycklar att
+hålla reda på. Vid varje push till GitHub körs `verktyg/oversatt.mjs` automatiskt
+(`.github/workflows/oversatt.yml`). Det läser sidorna, hittar text som är ny eller ändrad,
+översätter bara den, tar bort det som inte längre används och sparar språkfilerna i en egen
+commit. Kör `git pull` efteråt så att du har dem lokalt.
+
+- **Engångsinställning:** lägg en API-nyckel som hemlighet i repot under Settings →
+  Secrets and variables → Actions: `ANTHROPIC_API_KEY` (Claude) eller `DEEPL_API_KEY` (DeepL).
+- **Rätta en översättning:** ändra direkt i `en.js`/`uk.js`. Rättelsen ligger kvar tills
+  den svenska texten ändras.
+- **Text som inte ska översättas:** lägg `translate="no"` på elementet.
+- Saknas en översättning visas den svenska texten tills verktyget har körts.
+- Köra själv: `cd verktyg && npm install && ANTHROPIC_API_KEY=... node oversatt.mjs`
+  (`--kontroll` visar bara vad som saknas).
+- Nya HTML-sidor i rotmappen kommer med automatiskt, så länge de laddar
+  `assets/js/sprak.js` i `<head>` och har `<div class="sprakval" data-sprakval></div>` i sidhuvudet.
+
 ## Lägga till en produkt
 
 Öppna `assets/js/produkter.js` och lägg till ett block i listan. Längst ned i filen finns

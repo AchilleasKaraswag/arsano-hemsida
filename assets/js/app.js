@@ -81,7 +81,7 @@
       sida.style.setProperty("--product-accent", p.accent || "#0F1113");
 
       const punkter = (p.punkter || [])
-        .map((b) => `<li><strong>${esc(b.rubrik)}</strong> – ${esc(b.text)}</li>`).join("");
+        .map((b) => `<li><strong>${esc(b.rubrik)}</strong> <span aria-hidden="true">–</span> ${esc(b.text)}</li>`).join("");
 
       const spec = (p.spec || [])
         .map((r) => `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join("");
