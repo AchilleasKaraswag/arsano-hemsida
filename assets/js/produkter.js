@@ -54,7 +54,7 @@ const PRODUKTER = [
       ["Motviktens diameter", "Ø 30 mm"],
       ["Systemets totallängd", "ca 550 mm"],
       ["Målstrukturens diameter", "ca 500 mm"],
-      ["Linlängd", "5 m (anpassningsbar)"],
+      ["Linlängd", "7.5 m (anpassningsbar)"],
       ["Höljesmaterial", "ABS / PA12 (3D-print)"],
       ["Markeringsmedium", "Högkontrastpulver (vitt)"],
       ["Linmaterial", "Dyneema® / PP"]
