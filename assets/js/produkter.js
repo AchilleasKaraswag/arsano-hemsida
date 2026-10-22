@@ -48,14 +48,13 @@ const PRODUKTER = [
     ],
 
     spec: [
-      ["Totalmassa (utan motvikt)", "ca 420 g"],
-      ["Totalmassa (inklusive motvikt)", "ca 620 g"],
-      ["Markeringsbehållarens diameter", "Ø 40 mm"],
-      ["Motviktens diameter", "Ø 30 mm"],
-      ["Systemets totallängd", "ca 550 mm"],
-      ["Målstrukturens diameter", "ca 500 mm"],
-      ["Linlängd", "7.5 m (anpassningsbar)"],
-      ["Höljesmaterial", "ABS / PA12 (3D-print)"],
+      ["Totalmassa (utan motvikt)", "ca 120g"],
+      ["Totalmassa (inklusive motvikt)", "ca 160g"],
+      ["Motviktens diameter", "Ø 30mm"],
+      ["Målets höjd", "ca 550 mm"],
+      ["Målstrukturens diameter", "ca 240 mm"],
+      ["Linlängd", "7.5 m (15m med motvikt)"],
+      ["Höljesmaterial", "Miljöplast"],
       ["Markeringsmedium", "Högkontrastpulver (vitt)"],
       ["Linmaterial", "Dyneema® / PP"]
     ],
