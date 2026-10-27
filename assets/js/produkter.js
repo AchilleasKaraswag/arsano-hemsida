@@ -50,9 +50,8 @@ const PRODUKTER = [
     spec: [
       ["Totalmassa (utan motvikt)", "ca 120g"],
       ["Totalmassa (inklusive motvikt)", "ca 160g"],
-      ["Motviktens diameter", "Ø 30mm"],
-      ["Målets höjd", "ca 550 mm"],
-      ["Målstrukturens diameter", "ca 240 mm"],
+      ["Målets storlek", "235 x 235 x 24 mm"],
+      ["Motviktens storlek", "Ø 33 x 60 mm"],
       ["Linlängd", "7.5 m (15m med motvikt)"],
       ["Höljesmaterial", "Miljöplast"],
       ["Markeringsmedium", "Högkontrastpulver (vitt)"],
