@@ -55,7 +55,8 @@ const PRODUKTER = [
       ["Linlängd", "7.5 m (15m med motvikt)"],
       ["Höljesmaterial", "Miljöplast"],
       ["Markeringsmedium", "Högkontrastpulver (vitt)"],
-      ["Linmaterial", "Dyneema® / PP"]
+      ["Linmaterial", "Dyneema® / PP"],
+      ["Drifttemperatur", "−30 till +55 °C"]
     ],
 
     galleri: [

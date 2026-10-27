@@ -78,5 +78,7 @@ ArsanoSprak.lagg("uk", {
   "Markeringsmedium": "Маркувальна речовина",
   "Högkontrastpulver (vitt)": "Висококонтрастний порошок (білий)",
   "Linmaterial": "Матеріал троса",
-  "Dyneema® / PP": "Dyneema® / PP"
-});
+  "Dyneema® / PP": "Dyneema® / PP",
+  "Drifttemperatur": "Робоча температура",
+  "−30 till +55 °C": "від −30 до +55 °C"
+})

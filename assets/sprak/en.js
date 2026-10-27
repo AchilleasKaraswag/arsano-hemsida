@@ -78,5 +78,7 @@ ArsanoSprak.lagg("en", {
   "Markeringsmedium": "Marking medium",
   "Högkontrastpulver (vitt)": "High-contrast powder (white)",
   "Linmaterial": "Line material",
-  "Dyneema® / PP": "Dyneema® / PP"
+  "Dyneema® / PP": "Dyneema® / PP",
+  "Drifttemperatur": "Operating temperature",
+  "−30 till +55 °C": "−30 to +55 °C"
 });
